@@ -130,7 +130,7 @@ struct ZCONFIG_LOCALE
 
 struct ZCONFIG_CHAT
 {
-	std::string Font = "Arial";
+	std::string Font = "Noto Sans KR";
 	bool BoldFont = true;
 	int FontSize = 16;
 

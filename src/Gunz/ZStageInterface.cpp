@@ -98,7 +98,7 @@ void ZStageInterface::OnCreate()
 	if ( pDesc)
 	{
 		pDesc->SetTextColor( MCOLOR(0xFF808080));
-		pDesc->SetText( "¾ÆÀÌÅÛÀ» È­¸é Áß¾Ó¿¡ ÀÖ´Â µÎ°³ÀÇ Á¦´Ü¿¡ ²ø¾î³õÀ½À¸·Î½á °ÔÀÓ ·¹º§À» Á¶Á¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+		pDesc->SetText( "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ß¾Ó¿ï¿½ ï¿½Ö´ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
 	}
 
 	ZApplication::GetGameInterface()->ShowWidget( "Stage_Flame0", false);
@@ -544,6 +544,21 @@ void ZStageInterface::SetMapName(const char* szMapName)
 {
 	if (auto MapCombo = ZFindWidgetAs<MComboBox>("MapSelection"))
 	{
+
+		if (IsQuestDerivedGameType())
+		{
+			m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
+			m_SacrificeItem[ SACRIFICEITEM_SLOT1].RemoveItem();
+
+			UpdateSacrificeItem();
+			SerializeSacrificeItemListBox();
+
+			ZGetQuest()->GetGameInfo()->SetQuestLevel( 0 );
+			OnResponseQL( 0);
+
+			mlog("Released Sacrifice Table upon map change.\n");
+		}
+
 		MapCombo->SetText(szMapName);
 	}
 }
@@ -983,12 +998,15 @@ bool ZStageInterface::OnResponseQL( const int nQL )
 
 bool ZStageInterface::OnStageGameInfo( const int nQL, const int nMapsetID, const unsigned int nScenarioID )
 {
+	// std::string t = std::to_string(nScenarioID);
 	if (nScenarioID != 0)
 	{
+		// MessageBoxA(NULL, "nScenarioId != 0", t.c_str(), MB_OK);
 		ZGetQuest()->GetGameInfo()->SetQuestLevel( nQL );
 	}
 	else
 	{
+		// MessageBoxA(NULL, "nScenarioId == 0", t.c_str(), MB_OK);
 		ZGetQuest()->GetGameInfo()->SetQuestLevel( 0 );
 	}
 
@@ -1052,6 +1070,18 @@ void ZStageInterface::UpdateStageGameInfo(const int nQL, const int nMapsetID, co
 {
 	if (!IsQuestDerivedGameType())
 		return;
+
+	// if (IsQuestDerivedGameType())
+	// {
+	// 	m_SacrificeItem[ SACRIFICEITEM_SLOT0].RemoveItem();
+	// 	m_SacrificeItem[ SACRIFICEITEM_SLOT1].RemoveItem();
+
+	// 	ZGetQuest()->GetGameInfo()->SetQuestLevel( 0 );
+	// 	SerializeSacrificeItemListBox();
+	// 	UpdateSacrificeItem();
+
+	// 	mlog("Released Sacrifice Table upon map change.\n");
+	// }
 
 	if (auto pLabel = ZFindWidgetAs<MLabel>("Stage_QuestLevel"))
 	{

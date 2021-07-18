@@ -50,7 +50,7 @@ private:
 	// keeper ip.
 	std::string				m_strKeeperIP;
 
-	std::string GameDirectory = "";
+	std::string GameDirectory = "C:\\Users\\DadeMurphy\\Documents\\clones\\games\\ogz-client";
 	bool bIsMasterServer = true;
 	DatabaseType DBType = DatabaseType::SQLite;
 

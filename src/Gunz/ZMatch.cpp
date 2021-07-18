@@ -321,7 +321,7 @@ void ZMatch::SetRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 
 #ifndef _PUBLISH
 	char szLog[128];
-	sprintf_safe(szLog, "RoundState:%d À¸·Î ¹Ù²ñ\n", m_nRoundState);
+	sprintf_safe(szLog, "RoundState:%d ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½\n", m_nRoundState);
 	OutputDebugString(szLog);
 #endif
 

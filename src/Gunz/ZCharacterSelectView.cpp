@@ -471,12 +471,12 @@ void ZCharacterSelectView::OnChangedCharInfo(int sex,int index)
 	u32 nItemID[MMCIP_END];
 	memset(nItemID, 0, sizeof(nItemID));
 
-	// Çì¾î
+	// ï¿½ï¿½ï¿½
 
 //	nItemID[MMCIP_HEAD] = g_InitialHair[nHairIndex][(int)(nSex)];
 	nItemID[MMCIP_HEAD] = 0;
 
-	// ÄÚ½ºÃõ
+	// ï¿½Ú½ï¿½ï¿½ï¿½
 	nItemID[MMCIP_MELEE] = g_InitialCostume[index][sex].nMeleeItemID;
 	nItemID[MMCIP_PRIMARY] = g_InitialCostume[index][sex].nPrimaryItemID;
 	nItemID[MMCIP_SECONDARY] = g_InitialCostume[index][sex].nSecondaryItemID;
@@ -586,17 +586,20 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 	char szName[256];
 	MWidget* pWidget;
 	MLabel* pLabel;
+	MFont *pFont = MFontManager::Get( "FONTa9");
 
 	for ( int i = 0; i < MAX_CHAR_COUNT; i++)
 	{
 		sprintf_safe( szName, "CharSel_Name%d", i);
 		pLabel = (MLabel*)pResource->FindWidget( szName);
+		pLabel->SetFont(pFont);
+
 		if ( pLabel)
 		{
 			if ( i == nSelIndex)
 				pLabel->SetTextColor( MCOLOR(0xFFFFFFFF));
 			else
-				pLabel->SetTextColor( MCOLOR(0xFF606060));
+				pLabel->SetTextColor( MCOLOR(0xFF00FF00));
 		}
 
 		sprintf_safe( szName, "CharSel_Level%d", i);
@@ -754,12 +757,12 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			pLabel = (MLabel*)ZApplication::GetGameInterface()->GetIDLResource()->FindWidget( szWidgetName);
 			if ( pLabel)
 			{
-				/* Å¬·£Á¤º¸´Â »°½À´Ï´Ù. - bird
+				/* Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. - bird
 				char szString[256];
 				if ( strcmp( pAccountCharInfo->szClanName, "") == 0)
-					strcpy_safe( szString, "Å¬·£ : ---");
+					strcpy_safe( szString, "Å¬ï¿½ï¿½ : ---");
 				else
-					sprintf_safe( szString, "Å¬·£ : %s", pAccountCharInfo->szClanName);
+					sprintf_safe( szString, "Å¬ï¿½ï¿½ : %s", pAccountCharInfo->szClanName);
 				pLabel->SetText( szString);
 				*/
 				pLabel->SetText("");
@@ -810,7 +813,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 		pButton->Enable( (m_nNumOfCharacter == MAX_CHAR_COUNT) ? false : true);
 
 
-	// ³»°¡ Á¤¸» ´ººñÀÎÁö Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if (nCharMaxLevel <= 1) ZGetMyInfo()->SetNewbie(true);
 }
 
